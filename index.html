@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vector Velocity Run - Juego Educativo de Cálculo Vectorial</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Background Grid Effect -->
+    <div class="grid-background"></div>
+
+    <!-- Start Screen -->
+    <div id="startScreen" class="screen active">
+        <div class="title-container">
+            <h1 class="game-title">
+                <span class="title-run">RUN</span>
+            </h1>
+            <p class="subtitle">Corre. Aprende. Sobrevive.</p>
+        </div>
+
+        <div class="menu-panel">
+            <button id="startButton" class="btn-primary">
+                <span class="btn-icon">▶</span>
+                INICIAR JUEGO
+            </button>
+
+            <div class="high-score-display">
+                <div class="score-label">RÉCORD MÁXIMO</div>
+                <div id="highScoreDisplay" class="score-value">0</div>
+            </div>
+
+            <div class="instructions">
+                <h3>CÓMO JUGAR</h3>
+                <p>🎯 Responde preguntas de Cálculo Vectorial</p>
+                <p>⌨️ Usa las flechas ← → para cambiar de carril</p>
+                <p>✅ Atraviesa el muro con la respuesta correcta</p>
+                <p>❌ Evita las respuestas incorrectas</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="gameScreen" class="screen">
+        <!-- HUD -->
+        <div class="hud">
+            <div class="hud-item">
+                <span class="hud-label">PUNTOS</span>
+                <span id="scoreDisplay" class="hud-value">0</span>
+            </div>
+            <div class="hud-item">
+                <span class="hud-label">VIDAS</span>
+                <div id="livesDisplay" class="lives-container"></div>
+            </div>
+        </div>
+
+        <!-- Question Display -->
+        <div id="questionDisplay" class="question-panel">
+            <div class="timer-display">
+                <span class="timer-label">TIEMPO:</span>
+                <span id="timerDisplay" class="timer-value">18</span>s
+            </div>
+            <div class="question-text" id="questionText">Cargando pregunta...</div>
+            <div class="lane-answers">
+                <div class="lane-answer" id="lane0Answer">A</div>
+                <div class="lane-answer" id="lane1Answer">B</div>
+                <div class="lane-answer" id="lane2Answer">C</div>
+            </div>
+        </div>
+
+        <!-- Canvas -->
+        <canvas id="gameCanvas"></canvas>
+
+        <!-- Lane Indicators -->
+        <div class="lane-indicators">
+            <div class="lane-indicator" data-lane="0"></div>
+            <div class="lane-indicator" data-lane="1"></div>
+            <div class="lane-indicator" data-lane="2"></div>
+        </div>
+    </div>
+
+    <!-- Feedback Modal -->
+    <div id="feedbackModal" class="feedback-modal">
+        <div class="feedback-modal-content">
+            <h3 id="feedbackTitle" class="feedback-modal-title">¡CORRECTO!</h3>
+            <div id="feedbackText" class="feedback-modal-text"></div>
+            <button id="continueButton" class="btn-primary">CONTINUAR</button>
+        </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="gameOverScreen" class="screen">
+        <div class="game-over-panel">
+            <h2 class="game-over-title">GAME OVER</h2>
+
+            <div class="final-stats">
+                <div class="stat-item">
+                    <span class="stat-label">PUNTUACIÓN FINAL</span>
+                    <span id="finalScore" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">RÉCORD MÁXIMO</span>
+                    <span id="finalHighScore" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">PREGUNTAS RESPONDIDAS</span>
+                    <span id="totalQuestionsAnswered" class="stat-value">0</span>
+                </div>
+            </div>
+
+            <div class="answer-stats">
+                <div class="answer-stat correct">
+                    <span class="answer-stat-icon">✓</span>
+                    <span class="answer-stat-label">Correctas:</span>
+                    <span id="correctAnswersCount" class="answer-stat-value">0</span>
+                </div>
+                <div class="answer-stat incorrect">
+                    <span class="answer-stat-icon">✗</span>
+                    <span class="answer-stat-label">Incorrectas:</span>
+                    <span id="incorrectAnswersCount" class="answer-stat-value">0</span>
+                </div>
+            </div>
+
+            <div id="feedbackPanel" class="feedback-panel">
+                <div class="feedback-title">RESUMEN DE PREGUNTAS</div>
+                <div id="answeredQuestionsList" class="answered-questions-list"></div>
+            </div>
+
+            <button id="restartButton" class="btn-primary">
+                <span class="btn-icon">↻</span>
+                JUGAR DE NUEVO
+            </button>
+
+            <button id="menuButton" class="btn-secondary">
+                MENÚ PRINCIPAL
+            </button>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+
+</html>
