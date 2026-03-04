@@ -64,6 +64,7 @@ class Game {
         this.answerLocked = false;
         this.showingPreview = false;
         this.previewSpawned = false;
+        this.music = new BackgroundMusic();
 
         this.setupCanvas();
         this.setupEventListeners();
@@ -178,17 +179,17 @@ class Game {
             const response = await fetch('questions.json');
             const data = await response.json();
             this.questions = data.banco_preguntas;
+            console.log(this.questions);
         } catch (error) {
             console.error('Error loading questions:', error);
-            this.questions = [
-                {
-                    id: 1,
-                    pregunta: "¿Cuál es la magnitud del vector u = (3, 4)?",
-                    opciones: ["5", "7", "25"],
-                    respuesta_correcta_index: 0,
-                    feedback: "¡Correcto! Usaste el teorema de Pitágoras: √(3² + 4²) = 5."
-                }
-            ];
+            // Fallback preventing game crash if run without local server
+            this.questions = [{
+                id: 0,
+                pregunta: "Error: No se pudo cargar questions.json (Usa un Servidor Local)",
+                opciones: ["Ver error", "Revisar Consola", "Usar Live Server"],
+                respuesta_correcta_index: 2,
+                feedback: "Por seguridad de navegadores, no se puede hacer 'fetch' a archivos locales directamente abriendo el HTML. Usa una extensión como Live Server en VSCode."
+            }];
         }
     }
 
@@ -205,8 +206,16 @@ class Game {
     }
 
     getRandomQuestion() {
-        const randomIndex = Math.floor(Math.random() * this.questions.length);
-        return JSON.parse(JSON.stringify(this.questions[randomIndex])); // Deep copy
+        // If queue is empty, refill and shuffle
+        if (!this.questionQueue || this.questionQueue.length === 0) {
+            this.questionQueue = [...this.questions];
+            // Fisher-Yates shuffle
+            for (let i = this.questionQueue.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [this.questionQueue[i], this.questionQueue[j]] = [this.questionQueue[j], this.questionQueue[i]];
+            }
+        }
+        return JSON.parse(JSON.stringify(this.questionQueue.pop())); // Deep copy
     }
 
     startGame() {
@@ -227,6 +236,7 @@ class Game {
         this.answerLocked = false;
         this.showingPreview = false;
         this.previewSpawned = false;
+        this.questionQueue = []; // Reset so queue reshuffles fresh
         this.player = new Player(this);
         this.currentQuestion = null;
 
@@ -235,18 +245,21 @@ class Game {
         this.hideFeedbackModal();
         this.updateUI();
         this.lastFrameTime = performance.now();
+        this.music.stop();
+        this.music.start();
         this.gameLoop();
     }
 
     showMenu() {
         this.state = GAME_STATE.MENU;
+        this.music.stop();
         this.showScreen('startScreen');
         this.updateHighScoreDisplay();
     }
 
     showGameOver() {
         this.state = GAME_STATE.GAME_OVER;
-
+        this.music.stop();
         // Update high score
         if (this.score > this.highScore) {
             this.highScore = this.score;
@@ -327,6 +340,7 @@ class Game {
         }
 
         modal.classList.add('visible');
+        this.music.pause(); // Pause music during feedback
     }
 
     hideFeedbackModal() {
@@ -343,7 +357,8 @@ class Game {
             // Continue to next obstacle phase
             this.state = GAME_STATE.PLAYING;
             this.switchToObstaclePhase();
-            // Restart game loop
+            // Resume music and restart game loop
+            this.music.resume();
             this.lastFrameTime = performance.now();
             this.gameLoop();
         }
@@ -411,6 +426,38 @@ class Game {
             const lane = availableLanes[randomIndex];
             const obstacle = new RandomObstacle(this, lane);
             this.obstacles.push(obstacle);
+        }
+    }
+
+    spawnHeartPickup() {
+        // Find safe lane to spawn heart
+        const occupiedLanes = new Set();
+        this.obstacles.forEach(obs => {
+            if (obs.y < 200) occupiedLanes.add(obs.lane);
+        });
+
+        const availableLanes = [];
+        for (let i = 0; i < CONFIG.LANES; i++) {
+            if (!occupiedLanes.has(i)) availableLanes.push(i);
+        }
+
+        if (availableLanes.length > 0) {
+            const randomIndex = Math.floor(Math.random() * availableLanes.length);
+            const lane = availableLanes[randomIndex];
+            this.obstacles.push(new HeartPickup(this, lane));
+        }
+    }
+
+    handleHeartCollision() {
+        if (this.lives < CONFIG.INITIAL_LIVES) {
+            this.lives++;
+            this.updateUI();
+
+            // Visual feedback - quick green flash on canvas
+            const originalFill = this.ctx.fillStyle;
+            this.ctx.fillStyle = 'rgba(0, 255, 0, 0.3)';
+            this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+            this.ctx.fillStyle = originalFill;
         }
     }
 
@@ -559,8 +606,13 @@ class Game {
             this.phaseTimer += dt;
 
             // Spawn obstacles randomly (reduced frequency)
-            if (Math.random() < 0.01) { // 1% chance per frame (half of before)
+            if (Math.random() < 0.01) { // 1% chance per frame
                 this.spawnRandomObstacle();
+            }
+
+            // Spawn heart pickups casually if lives <= 3
+            if (this.lives <= 3 && Math.random() < 0.0003) { // 0.03% chance per frame (roughly every 50-60 seconds)
+                this.spawnHeartPickup();
             }
 
             // Update obstacles
@@ -578,17 +630,22 @@ class Game {
                         this.switchToQuestionPhase();
                         return;
                     }
+                } else if (obstacle instanceof HeartPickup) {
+                    if (this.checkObstacleCollision(obstacle)) {
+                        this.handleHeartCollision();
+                        this.obstacles.splice(i, 1);
+                        continue;
+                    }
                 } else if (this.checkObstacleCollision(obstacle)) {
                     this.handleObstacleCollision();
                     this.obstacles.splice(i, 1);
                     continue;
                 }
 
-                // Remove obstacles that are off screen
                 if (obstacle.y > this.canvas.height + 100) {
                     this.obstacles.splice(i, 1);
                 }
-            }
+            } // End of obstacles loop
 
             // Switch to question phase after duration
             if (this.phaseTimer >= CONFIG.OBSTACLE_PHASE_DURATION) {
@@ -886,6 +943,99 @@ class QuestionPreview {
         ctx.fillText('?', this.x + this.width / 2, this.y + this.height / 2);
 
         ctx.shadowBlur = 0;
+    }
+}
+
+class HeartPickup {
+    constructor(game, lane) {
+        this.game = game;
+        this.lane = lane;
+        this.y = -CONFIG.OBSTACLE_HEIGHT;
+        this.width = CONFIG.OBSTACLE_WIDTH * 0.8; // Slightly smaller
+        this.height = CONFIG.OBSTACLE_HEIGHT * 0.8;
+        this.x = this.getLaneX(lane);
+        this.pulse = 0;
+    }
+
+    getLaneX(lane) {
+        const centerX = this.game.canvas.width / 2;
+        const roadWidth = CONFIG.LANE_WIDTH * CONFIG.LANES;
+        const laneCenter = centerX - roadWidth / 2 + lane * CONFIG.LANE_WIDTH + CONFIG.LANE_WIDTH / 2;
+        return laneCenter - this.width / 2;
+    }
+
+    update(deltaTime) {
+        const speedMult = deltaTime / 16.67;
+        this.y += this.game.speed * speedMult;
+        this.x = this.getLaneX(this.lane);
+        this.pulse += 0.1 * speedMult;
+    }
+
+    draw() {
+        const ctx = this.game.ctx;
+        const scale = 1 + Math.sin(this.pulse) * 0.1;
+
+        // Glowing Heart Box
+        ctx.fillStyle = 'rgba(0, 255, 100, 0.8)';
+        ctx.strokeStyle = '#00ff66';
+        ctx.lineWidth = 3;
+        ctx.shadowBlur = 25 * scale;
+        ctx.shadowColor = '#00ff66';
+
+        const center_x = this.x + this.width / 2;
+        const center_y = this.y + this.height / 2;
+        const scaledWidth = this.width * scale;
+        const scaledHeight = this.height * scale;
+
+        ctx.fillRect(center_x - scaledWidth / 2, center_y - scaledHeight / 2, scaledWidth, scaledHeight);
+        ctx.strokeRect(center_x - scaledWidth / 2, center_y - scaledHeight / 2, scaledWidth, scaledHeight);
+
+        // Heart Emoji
+        ctx.fillStyle = '#ffffff';
+        ctx.font = `${Math.floor(40 * scale)}px Arial`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('💚', center_x, center_y);
+
+        ctx.shadowBlur = 0;
+    }
+}
+
+// ============================================
+// BACKGROUND MUSIC ENGINE
+// ============================================
+class BackgroundMusic {
+    constructor() {
+        this.audio = new Audio('assets/Popcorn.mp3');
+        this.audio.loop = true;
+        this.audio.volume = 0.5;
+        this.isPlaying = false;
+    }
+
+    start() {
+        if (!this.isPlaying) {
+            this.audio.play().catch(e => console.log("Audio autoplay prevented", e));
+            this.isPlaying = true;
+        }
+    }
+
+    pause() {
+        if (this.isPlaying) {
+            this.audio.pause();
+            this.isPlaying = false;
+        }
+    }
+
+    resume() {
+        if (!this.isPlaying) {
+            this.audio.play().catch(e => console.log("Audio autoplay prevented", e));
+            this.isPlaying = true;
+        }
+    }
+
+    stop() {
+        this.pause();
+        this.audio.currentTime = 0;
     }
 }
 
