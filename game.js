@@ -6,8 +6,8 @@
 const CONFIG = {
     LANES: 3,
     LANE_WIDTH: window.innerWidth < 768 ? 120 : 200,
-    INITIAL_SPEED: 6,
-    SPEED_INCREMENT: 1,
+    INITIAL_SPEED: 5,
+    SPEED_INCREMENT: 0.3,
     MAX_SPEED: 12,
     PLAYER_SIZE: 60,
     OBSTACLE_HEIGHT: 120,
@@ -95,18 +95,34 @@ class Game {
             this.keys[e.key] = false;
         });
 
-        // Touch/Click controls for mobile
-        this.canvas.addEventListener('click', (e) => {
-            if (this.state === GAME_STATE.PLAYING) {
-                const clickX = e.clientX;
-                const centerX = this.canvas.width / 2;
-                if (clickX < centerX) {
+        // Swipe controls (Subway Surfers style) - prevent double tap acceleration
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchStartTime = 0;
+        const SWIPE_THRESHOLD = 30; // min pixels to count as a swipe
+
+        this.canvas.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // prevent double-tap zoom
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+            touchStartTime = Date.now();
+        }, { passive: false });
+
+        this.canvas.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            if (this.state !== GAME_STATE.PLAYING || this.phase !== GAME_PHASE.OBSTACLE) return;
+            const dx = e.changedTouches[0].clientX - touchStartX;
+            const dy = e.changedTouches[0].clientY - touchStartY;
+            const elapsed = Date.now() - touchStartTime;
+            // Only count as swipe if horizontal movement dominates and fast enough
+            if (Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy) && elapsed < 400) {
+                if (dx < 0) {
                     this.player.moveLeft();
                 } else {
                     this.player.moveRight();
                 }
             }
-        });
+        }, { passive: false });
 
         // UI Buttons
         document.getElementById('startButton').addEventListener('click', () => this.startGame());
@@ -430,10 +446,8 @@ class Game {
         this.correctAnswers++;
         this.totalQuestionsAnswered++;
 
-        // Increase speed every 5 questions
-        if (this.totalQuestionsAnswered % CONFIG.SPEED_INCREASE_INTERVAL === 0) {
-            this.speed = Math.min(this.speed + CONFIG.SPEED_INCREMENT, CONFIG.MAX_SPEED);
-        }
+        // Increase speed gradually on every correct answer
+        this.speed = Math.min(this.speed + CONFIG.SPEED_INCREMENT, CONFIG.MAX_SPEED);
 
         const userAnswer = this.currentQuestion.opciones[this.selectedAnswer];
         const correctAnswer = this.currentQuestion.opciones[this.currentQuestion.respuesta_correcta_index];
