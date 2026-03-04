@@ -124,6 +124,13 @@ class Game {
             }
         }, { passive: false });
 
+        // Prevent page scroll while playing (avoids deltaTime spikes)
+        document.addEventListener('touchmove', (e) => {
+            if (this.state === GAME_STATE.PLAYING) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+
         // UI Buttons
         document.getElementById('startButton').addEventListener('click', () => this.startGame());
         document.getElementById('restartButton').addEventListener('click', () => this.startGame());
@@ -542,8 +549,10 @@ class Game {
         if (this.state !== GAME_STATE.PLAYING) return;
 
         const dt = deltaTime / 1000; // Convert to seconds
-        this.distance += this.speed;
-        this.player.update();
+        // speedMult normalizes movement to 60fps equivalent
+        const speedMult = deltaTime / 16.67;
+        this.distance += this.speed * speedMult;
+        this.player.update(speedMult);
 
         if (this.phase === GAME_PHASE.OBSTACLE) {
             // Obstacle phase
@@ -557,7 +566,7 @@ class Game {
             // Update obstacles
             for (let i = this.obstacles.length - 1; i >= 0; i--) {
                 const obstacle = this.obstacles[i];
-                obstacle.update();
+                obstacle.update(deltaTime);
 
                 // Check collision
                 if (obstacle instanceof QuestionPreview) {
@@ -671,7 +680,8 @@ class Game {
     gameLoop() {
         if (this.state === GAME_STATE.PLAYING) {
             const currentTime = performance.now();
-            const deltaTime = currentTime - this.lastFrameTime;
+            // Cap deltaTime to 50ms max to prevent speed spikes from touch/scroll events
+            const deltaTime = Math.min(currentTime - this.lastFrameTime, 50);
             this.lastFrameTime = currentTime;
 
             this.update(deltaTime);
@@ -715,10 +725,11 @@ class Player {
         }
     }
 
-    update() {
-        // Smooth lane transition
+    update(speedMult = 1) {
+        // Smooth lane transition (frame-rate independent)
         const targetX = this.getLaneX(this.targetLane);
-        this.x += (targetX - this.x) * CONFIG.LANE_SWITCH_SPEED;
+        const lerpSpeed = 1 - Math.pow(1 - CONFIG.LANE_SWITCH_SPEED, speedMult);
+        this.x += (targetX - this.x) * lerpSpeed;
 
         // Update current lane when close enough
         if (Math.abs(this.x - targetX) < 5) {
@@ -727,7 +738,7 @@ class Player {
         }
 
         // Animation
-        this.animationFrame += 0.2;
+        this.animationFrame += 0.2 * speedMult;
     }
 
     draw() {
@@ -784,8 +795,9 @@ class RandomObstacle {
         return laneCenter - this.width / 2;
     }
 
-    update() {
-        this.y += this.game.speed;
+    update(deltaTime) {
+        const speedMult = deltaTime / 16.67;
+        this.y += this.game.speed * speedMult;
         this.x = this.getLaneX(this.lane);
     }
 
@@ -851,8 +863,9 @@ class QuestionPreview {
         return laneCenter - this.width / 2;
     }
 
-    update() {
-        this.y += this.game.speed;
+    update(deltaTime) {
+        const speedMult = deltaTime / 16.67;
+        this.y += this.game.speed * speedMult;
         this.x = this.getLaneX(this.lane);
     }
 
