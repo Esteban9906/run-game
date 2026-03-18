@@ -15,7 +15,7 @@ const CONFIG = {
     POINTS_PER_CORRECT: 100,
     LANE_SWITCH_SPEED: 0.2,
     INITIAL_LIVES: 5,
-    QUESTION_TIME: 18, // seconds
+    QUESTION_TIME: 60, // seconds
     OBSTACLE_PHASE_DURATION: 10, // seconds
     SPEED_INCREASE_INTERVAL: 5 // every 5 questions
 };
