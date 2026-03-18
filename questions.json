@@ -2,113 +2,79 @@
   "banco_preguntas": [
     {
       "id": 1,
-      "pregunta": "¿Cuál es la magnitud del vector u = (3, 4)?",
+      "pregunta": "Al analizar el conjunto W dado por W = {(x,y,z) ∈ ℝ³ | x + 3y + z = 0}",
       "opciones": [
-        "5",
-        "7",
-        "25"
+        "No un subespacio vectorial",
+        "Es un subespacio vectorial cumple con las 3 condiciones",
+        "Es un subespacio vectorial cumple con las 2 condiciones",
+        "Es un subespacio vectorial cumple con las 10 condiciones"
       ],
-      "respuesta_correcta_index": 0,
-      "feedback": "Para calcular la magnitud de un vector (x, y), usamos el teorema de Pitágoras: ||u|| = √(x² + y²). En este caso: √(3² + 4²) = √(9 + 16) = √25 = 5."
+      "respuesta_correcta_index": 1,
+      "feedback": "El conjunto sí es un subespacio vectorial porque cumple las tres condiciones: contiene el vector cero, es cerrado bajo suma y es cerrado bajo multiplicación por escalares."
     },
     {
       "id": 2,
-      "pregunta": "El producto punto de (1, 2) y (3, -1) es:",
+      "pregunta": "Considere la matriz W = { [[a,0],[0,b]] | a + b = 5 }",
       "opciones": [
-        "5",
-        "1",
-        "-1"
+        "Es un subespacio vectorial, cumple con las 2 condiciones",
+        "Es un subespacio vectorial, cumple con las 3 condiciones",
+        "Es un subespacio vectorial, cumple con las 10 condiciones",
+        "No un subespacio vectorial"
       ],
-      "respuesta_correcta_index": 1,
-      "feedback": "El producto punto se calcula multiplicando componente por componente y sumando: (1×3) + (2×-1) = 3 - 2 = 1. Este resultado nos dice que los vectores forman un ángulo agudo."
+      "respuesta_correcta_index": 3,
+      "feedback": "No es un subespacio vectorial porque no contiene la matriz cero. Si a + b = 5, entonces a = 0 y b = 0 no cumplen la condición."
     },
     {
       "id": 3,
-      "pregunta": "Si el producto punto de dos vectores es 0, son...",
+      "pregunta": "Considere la matriz W = { [[a,0],[0,b]] | a + b = 5 }",
       "opciones": [
-        "Paralelos",
-        "Iguales",
-        "Ortogonales"
+        "Es un subespacio vectorial, cumple con las 10 condiciones",
+        "Es un subespacio vectorial, cumple con las 3 condiciones",
+        "Es un subespacio vectorial, cumple con las 2 condiciones",
+        "No un subespacio vectorial"
       ],
-      "respuesta_correcta_index": 2,
-      "feedback": "Cuando el producto punto es 0, los vectores son ortogonales (perpendiculares). El ángulo entre ellos es de 90 grados. Esto es muy útil para verificar perpendicularidad en geometría."
+      "respuesta_correcta_index": 3,
+      "feedback": "No es un subespacio vectorial porque no cumple la condición del vector cero ni el cierre bajo multiplicación escalar."
     },
     {
       "id": 4,
-      "pregunta": "¿Qué magnitud tiene un vector unitario?",
+      "pregunta": "Los vectores u⃗ = (1,2,-2) y w⃗ = (-4,-8,6) son linealmente independientes.",
       "opciones": [
-        "0",
-        "1",
-        "Infinito"
+        "Verdadero",
+        "Falso"
       ],
-      "respuesta_correcta_index": 1,
-      "feedback": "Un vector unitario tiene magnitud (norma) igual a 1 por definición. Se obtiene dividiendo cualquier vector por su magnitud: û = u/||u||. Los vectores unitarios son útiles para representar direcciones."
+      "respuesta_correcta_index": 0,
+      "feedback": "Son linealmente independientes porque uno no es múltiplo escalar exacto del otro."
     },
     {
       "id": 5,
-      "pregunta": "Resultado del producto cruz entre dos vectores:",
+      "pregunta": "¿El vector (0,0,1) es combinación lineal de (0,0,3)?",
       "opciones": [
-        "Un escalar",
-        "Un vector",
-        "Un ángulo"
+        "Verdadero",
+        "Falso"
       ],
-      "respuesta_correcta_index": 1,
-      "feedback": "El producto cruz (a × b) genera un nuevo vector perpendicular a ambos vectores originales. Su magnitud es ||a|| × ||b|| × sen(θ), donde θ es el ángulo entre ellos. Es muy útil en física para calcular torques y momentos."
+      "respuesta_correcta_index": 0,
+      "feedback": "Sí, porque (0,0,1) = (1/3)(0,0,3)."
     },
     {
       "id": 6,
-      "pregunta": "La norma del vector v = (0, 0) es:",
+      "pregunta": "¿Los vectores (1,1,0), (1,0,1) y (0,1,1) forman una base?",
       "opciones": [
-        "0",
-        "1",
-        "Indefinida"
+        "Verdadero",
+        "Falso"
       ],
       "respuesta_correcta_index": 0,
-      "feedback": "El vector (0, 0) es el vector nulo o cero. Su magnitud es ||v|| = √(0² + 0²) = 0. Es el único vector con magnitud cero y no tiene dirección definida."
+      "feedback": "Sí forman una base porque son linealmente independientes y generan ℝ³."
     },
     {
       "id": 7,
-      "pregunta": "Dos vectores son paralelos si:",
+      "pregunta": "Para conocer si dos o más vectores son linealmente independientes, el determinante formado por esos vectores debe dar distinto de cero.",
       "opciones": [
-        "Su producto punto es 0",
-        "Uno es múltiplo del otro",
-        "Tienen igual magnitud"
+        "Verdadero",
+        "Falso"
       ],
-      "respuesta_correcta_index": 1,
-      "feedback": "Dos vectores son paralelos si uno es un múltiplo escalar del otro: v = k·u. Esto significa que tienen la misma dirección (si k > 0) o direcciones opuestas (si k < 0)."
-    },
-    {
-      "id": 8,
-      "pregunta": "El ángulo entre (1, 0) y (0, 1) es:",
-      "opciones": [
-        "0°",
-        "45°",
-        "90°"
-      ],
-      "respuesta_correcta_index": 2,
-      "feedback": "Estos son los vectores unitarios canónicos î y ĵ. Son perpendiculares entre sí, formando un ángulo de 90°. Puedes verificarlo con el producto punto: (1, 0)·(0, 1) = 0."
-    },
-    {
-      "id": 9,
-      "pregunta": "¿Cuál es el vector unitario de (3, 4)?",
-      "opciones": [
-        "(3, 4)",
-        "(0.6, 0.8)",
-        "(1, 1)"
-      ],
-      "respuesta_correcta_index": 1,
-      "feedback": "Para obtener el vector unitario, dividimos cada componente por la magnitud: û = (3, 4)/5 = (3/5, 4/5) = (0.6, 0.8). Verifica: √(0.6² + 0.8²) = √(0.36 + 0.64) = √1 = 1."
-    },
-    {
-      "id": 10,
-      "pregunta": "La proyección de u sobre v se calcula con:",
-      "opciones": [
-        "u × v",
-        "(u·v / ||v||²) × v",
-        "u + v"
-      ],
-      "respuesta_correcta_index": 1,
-      "feedback": "La proyección de u sobre v es: proyᵥu = ((u·v) / ||v||²) × v. Esta fórmula nos da la componente de u en la dirección de v, muy útil en física para descomponer fuerzas."
+      "respuesta_correcta_index": 0,
+      "feedback": "Si el determinante es distinto de cero, los vectores son linealmente independientes."
     }
   ]
 }
