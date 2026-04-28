@@ -2,323 +2,108 @@
   "banco_preguntas": [
     {
       "id": 1,
-      "pregunta": "Los vectores u⃗ = (1,2,-2) y w⃗ = (-4,-8,6) son linealmente independientes.",
-      "opciones": [
-        "Verdadero",
-        "Falso"
-      ],
+      "pregunta": "¿Cuál es el país más grande del mundo?",
+      "opciones": ["Rusia", "China", "Estados Unidos", "Canadá"],
       "respuesta_correcta_index": 0,
-      "feedback": "Son linealmente independientes porque uno no es múltiplo escalar exacto del otro."
+      "feedback": "Rusia es el país más grande en extensión territorial."
     },
     {
       "id": 2,
-      "pregunta": "¿El vector (0,0,1) es combinación lineal de (0,0,3)?",
-      "opciones": [
-        "Verdadero",
-        "Falso"
-      ],
-      "respuesta_correcta_index": 0,
-      "feedback": "Sí, porque (0,0,1) = (1/3)(0,0,3)."
+      "pregunta": "¿Cuál es el océano más grande?",
+      "opciones": ["Atlántico", "Índico", "Pacífico", "Ártico"],
+      "respuesta_correcta_index": 2,
+      "feedback": "El océano Pacífico es el más extenso del planeta."
     },
     {
       "id": 3,
-      "pregunta": "¿Los vectores (1,1,0), (1,0,1) y (0,1,1) forman una base?",
-      "opciones": [
-        "Verdadero",
-        "Falso"
-      ],
-      "respuesta_correcta_index": 0,
-      "feedback": "Sí forman una base porque son linealmente independientes y generan ℝ³."
+      "pregunta": "¿Quién pintó la Mona Lisa?",
+      "opciones": ["Vincent van Gogh", "Leonardo da Vinci", "Picasso", "Miguel Ángel"],
+      "respuesta_correcta_index": 1,
+      "feedback": "La Mona Lisa fue pintada por Leonardo da Vinci."
     },
     {
       "id": 4,
-      "pregunta": "Para conocer si dos o más vectores son linealmente independientes, el determinante formado por esos vectores debe dar distinto de cero.",
-      "opciones": [
-        "Verdadero",
-        "Falso"
-      ],
-      "respuesta_correcta_index": 0,
-      "feedback": "Si el determinante es distinto de cero, los vectores son linealmente independientes."
+      "pregunta": "¿En qué año llegó el hombre a la Luna?",
+      "opciones": ["1965", "1969", "1972", "1959"],
+      "respuesta_correcta_index": 1,
+      "feedback": "El hombre llegó a la Luna en 1969 con la misión Apolo 11."
     },
     {
       "id": 5,
-      "pregunta": "¿Cuál es la magnitud del vector (3,4)?",
-      "opciones": [
-        "5",
-        "7",
-        "25",
-        "1"
-      ],
-      "respuesta_correcta_index": 0,
-      "feedback": "La magnitud se calcula como ||v|| = √(3² + 4²) = √25 = 5."
+      "pregunta": "¿Cuál es el idioma más hablado del mundo?",
+      "opciones": ["Inglés", "Español", "Chino mandarín", "Hindi"],
+      "respuesta_correcta_index": 2,
+      "feedback": "El chino mandarín es el idioma con más hablantes."
     },
     {
       "id": 6,
-      "pregunta": "El producto punto de (1,2) y (3,4) es:",
-      "opciones": [
-        "11",
-        "10",
-        "7",
-        "12"
-      ],
+      "pregunta": "¿Cuál es el río más largo del mundo?",
+      "opciones": ["Amazonas", "Nilo", "Yangtsé", "Misisipi"],
       "respuesta_correcta_index": 0,
-      "feedback": "El producto punto es (1)(3) + (2)(4) = 3 + 8 = 11."
+      "feedback": "El Amazonas es considerado el río más largo."
     },
     {
       "id": 7,
-      "pregunta": "Si u = (1,2) y v = (3,4), entonces u + v es:",
-      "opciones": [
-        "(4,6)",
-        "(3,6)",
-        "(4,5)",
-        "(2,6)"
-      ],
-      "respuesta_correcta_index": 0,
-      "feedback": "La suma de vectores se hace componente a componente: (1+3, 2+4) = (4,6)."
+      "pregunta": "¿Cuál es la capital de Francia?",
+      "opciones": ["Roma", "Madrid", "París", "Berlín"],
+      "respuesta_correcta_index": 2,
+      "feedback": "París es la capital de Francia."
     },
     {
       "id": 8,
-      "pregunta": "Si v = (2,-1), entonces 3v es:",
-      "opciones": [
-        "(6,-3)",
-        "(3,-1)",
-        "(6,-1)",
-        "(2,-3)"
-      ],
-      "respuesta_correcta_index": 0,
-      "feedback": "La multiplicación por escalar se hace multiplicando cada componente por 3."
+      "pregunta": "¿Cuántos continentes existen?",
+      "opciones": ["5", "6", "7", "8"],
+      "respuesta_correcta_index": 2,
+      "feedback": "Existen 7 continentes en el mundo."
     },
     {
       "id": 9,
-      "pregunta": "El vector (0,0) es:",
-      "opciones": [
-        "Vector nulo",
-        "Vector unitario",
-        "Vector paralelo",
-        "Vector ortogonal"
-      ],
-      "respuesta_correcta_index": 0,
-      "feedback": "Es el vector con todas sus componentes iguales a cero."
+      "pregunta": "¿Cuál es el planeta más grande del sistema solar?",
+      "opciones": ["Tierra", "Saturno", "Júpiter", "Marte"],
+      "respuesta_correcta_index": 2,
+      "feedback": "Júpiter es el planeta más grande."
     },
     {
       "id": 10,
-      "pregunta": "Los vectores (1,2) y (2,4) son:",
-      "opciones": [
-        "Dependientes",
-        "Independientes"
-      ],
-      "respuesta_correcta_index": 0,
-      "feedback": "Son dependientes porque (2,4) = 2(1,2)."
+      "pregunta": "¿Quién escribió 'Don Quijote de la Mancha'?",
+      "opciones": ["Gabriel García Márquez", "Miguel de Cervantes", "Pablo Neruda", "Mario Vargas Llosa"],
+      "respuesta_correcta_index": 1,
+      "feedback": "Fue escrito por Miguel de Cervantes."
     },
     {
       "id": 11,
-      "pregunta": "Los vectores (1,0) y (0,1) son:",
-      "opciones": [
-        "Dependientes",
-        "Independientes"
-      ],
-      "respuesta_correcta_index": 1,
-      "feedback": "Son independientes porque ninguno es múltiplo escalar del otro."
+      "pregunta": "¿Cuál es el país con más población?",
+      "opciones": ["India", "China", "Estados Unidos", "Brasil"],
+      "respuesta_correcta_index": 0,
+      "feedback": "Actualmente India es el país más poblado."
     },
     {
       "id": 12,
-      "pregunta": "El producto punto de vectores perpendiculares es:",
-      "opciones": [
-        "0",
-        "1",
-        "-1",
-        "Depende"
-      ],
-      "respuesta_correcta_index": 0,
-      "feedback": "Si dos vectores son perpendiculares, su producto punto es 0."
+      "pregunta": "¿Cuál es el animal terrestre más rápido?",
+      "opciones": ["León", "Tigre", "Guepardo", "Caballo"],
+      "respuesta_correcta_index": 2,
+      "feedback": "El guepardo es el animal terrestre más veloz."
     },
     {
       "id": 13,
-      "pregunta": "¿Cuál es la magnitud de (1,2,2)?",
-      "opciones": [
-        "3",
-        "4",
-        "5",
-        "2"
-      ],
-      "respuesta_correcta_index": 0,
-      "feedback": "||v|| = √(1² + 2² + 2²) = √9 = 3."
+      "pregunta": "¿En qué continente está Egipto?",
+      "opciones": ["Asia", "Europa", "África", "Oceanía"],
+      "respuesta_correcta_index": 2,
+      "feedback": "Egipto se encuentra en África."
     },
     {
       "id": 14,
-      "pregunta": "El producto punto de (1,-1) y (1,1) es:",
-      "opciones": [
-        "0",
-        "1",
-        "-1",
-        "2"
-      ],
-      "respuesta_correcta_index": 0,
-      "feedback": "El producto punto es 1·1 + (-1)·1 = 0, por eso son ortogonales."
+      "pregunta": "¿Cuál es el metal más ligero?",
+      "opciones": ["Hierro", "Litio", "Oro", "Plata"],
+      "respuesta_correcta_index": 1,
+      "feedback": "El litio es el metal más ligero."
     },
     {
       "id": 15,
-      "pregunta": "El vector (2,2) es combinación lineal de (1,1).",
-      "opciones": [
-        "Verdadero",
-        "Falso"
-      ],
-      "respuesta_correcta_index": 0,
-      "feedback": "Sí, porque (2,2) = 2(1,1)."
-    },
-    {
-      "id": 16,
-      "pregunta": "Los vectores (1,2,3) y (2,4,6) son:",
-      "opciones": [
-        "Dependientes",
-        "Independientes"
-      ],
-      "respuesta_correcta_index": 0,
-      "feedback": "Son dependientes porque el segundo es múltiplo escalar del primero."
-    },
-    {
-      "id": 17,
-      "pregunta": "El vector unitario tiene magnitud:",
-      "opciones": [
-        "1",
-        "0",
-        "2",
-        "-1"
-      ],
-      "respuesta_correcta_index": 0,
-      "feedback": "Por definición, un vector unitario siempre tiene magnitud 1."
-    },
-    {
-      "id": 18,
-      "pregunta": "Si u = (2,3) y v = (-2,-3), entonces son:",
-      "opciones": [
-        "Paralelos",
-        "Perpendiculares"
-      ],
-      "respuesta_correcta_index": 0,
-      "feedback": "Son paralelos porque uno es múltiplo escalar del otro: v = -1·u."
-    },
-    {
-      "id": 19,
-      "pregunta": "El producto punto de (2,3,1) y (1,0,-1) es:",
-      "opciones": [
-        "1",
-        "2",
-        "-1",
-        "3"
-      ],
-      "respuesta_correcta_index": 0,
-      "feedback": "Se calcula: (2)(1) + (3)(0) + (1)(-1) = 2 + 0 - 1 = 1."
-    },
-    {
-      "id": 20,
-      "pregunta": "¿(0,1,0) es base de ℝ³?",
-      "opciones": [
-        "Sí",
-        "No"
-      ],
+      "pregunta": "¿Cuántos lados tiene un hexágono?",
+      "opciones": ["5", "6", "7", "8"],
       "respuesta_correcta_index": 1,
-      "feedback": "No, porque un solo vector no puede generar todo ℝ³."
-    },
-    {
-      "id": 21,
-      "pregunta": "Tres vectores en ℝ³ forman base si:",
-      "opciones": [
-        "Son independientes",
-        "Son iguales"
-      ],
-      "respuesta_correcta_index": 0,
-      "feedback": "Tres vectores en ℝ³ forman una base si son linealmente independientes."
-    },
-    {
-      "id": 22,
-      "pregunta": "El determinante distinto de cero indica:",
-      "opciones": [
-        "Independencia",
-        "Dependencia"
-      ],
-      "respuesta_correcta_index": 0,
-      "feedback": "Si el determinante es distinto de cero, los vectores son linealmente independientes."
-    },
-    {
-      "id": 23,
-      "pregunta": "El determinante igual a cero indica:",
-      "opciones": [
-        "Dependencia",
-        "Independencia"
-      ],
-      "respuesta_correcta_index": 0,
-      "feedback": "Si el determinante es cero, los vectores son linealmente dependientes."
-    },
-    {
-      "id": 24,
-      "pregunta": "La suma de vectores se realiza:",
-      "opciones": [
-        "Componente a componente",
-        "Multiplicando"
-      ],
-      "respuesta_correcta_index": 0,
-      "feedback": "La suma de vectores siempre se hace componente a componente."
-    },
-    {
-      "id": 25,
-      "pregunta": "Multiplicar un vector por escalar:",
-      "opciones": [
-        "Escala cada componente",
-        "Suma valores"
-      ],
-      "respuesta_correcta_index": 0,
-      "feedback": "Cada componente del vector se multiplica por el escalar."
-    },
-    {
-      "id": 26,
-      "pregunta": "Dos vectores son ortogonales si:",
-      "opciones": [
-        "Producto punto = 0",
-        "Son iguales"
-      ],
-      "respuesta_correcta_index": 0,
-      "feedback": "Esa es la definición de vectores ortogonales."
-    },
-    {
-      "id": 27,
-      "pregunta": "El vector (1,0,0) es:",
-      "opciones": [
-        "Unitario",
-        "Nulo"
-      ],
-      "respuesta_correcta_index": 0,
-      "feedback": "Tiene magnitud 1, por lo tanto es un vector unitario."
-    },
-    {
-      "id": 28,
-      "pregunta": "Si v = (0,0,0), entonces es:",
-      "opciones": [
-        "Nulo",
-        "Unitario"
-      ],
-      "respuesta_correcta_index": 0,
-      "feedback": "Es el vector cero o vector nulo."
-    },
-    {
-      "id": 29,
-      "pregunta": "Una base debe ser:",
-      "opciones": [
-        "Independiente y generadora",
-        "Solo generadora"
-      ],
-      "respuesta_correcta_index": 0,
-      "feedback": "Para ser base, un conjunto debe generar el espacio y además ser linealmente independiente."
-    },
-    {
-      "id": 30,
-      "pregunta": "Un vector paralelo cumple:",
-      "opciones": [
-        "Es múltiplo escalar",
-        "Producto punto cero"
-      ],
-      "respuesta_correcta_index": 0,
-      "feedback": "Dos vectores son paralelos si uno es múltiplo escalar del otro."
+      "feedback": "Un hexágono tiene 6 lados."
     }
   ]
 }
