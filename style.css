@@ -1084,3 +1084,32 @@ body {
         padding: 1.1rem 1.5rem;
     }
 }
+
+/* ============================
+   LEVEL SCREEN
+============================ */
+
+#levelScreen{
+    flex-direction: column;
+}
+
+.level-btn{
+    margin-bottom: 1.2rem;
+    font-size:1.4rem;
+}
+
+.level-btn:hover{
+    transform: scale(1.04);
+}
+
+.level-btn:nth-child(3){
+    background:linear-gradient(135deg,#00f3ff,#00ff88);
+}
+
+.level-btn:nth-child(4){
+    background:linear-gradient(135deg,#ff00ff,#0066ff);
+}
+
+.level-btn:nth-child(5){
+    background:linear-gradient(135deg,#ff6600,#ff00ff);
+}

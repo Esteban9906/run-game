@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vector Velocity Run - Juego Educativo de Cálculo Vectorial</title>
+    <title>Math Runner</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -39,13 +39,52 @@
 
             <div class="instructions">
                 <h3>CÓMO JUGAR</h3>
-                <p>🎯 Responde preguntas de cultura general</p>
+                <p>🎯 Responde preguntas matematicas</p>
                 <p>⌨️ Usa las flechas ← → para cambiar de carril</p>
                 <p>✅ Atraviesa el muro con la respuesta correcta</p>
                 <p>❌ Evita las respuestas incorrectas</p>
             </div>
         </div>
     </div>
+
+    <!-- ===================================== -->
+<!-- LEVEL SELECTION SCREEN -->
+<!-- ===================================== -->
+
+<div id="levelScreen" class="screen">
+
+    <div class="menu-panel">
+
+        <div class="title-container">
+            <h1 class="game-title">
+                <span class="title-vector">MATH</span>
+                <span class="title-velocity">RUNNER</span>
+            </h1>
+
+            <p class="subtitle">
+                Selecciona el nivel educativo
+            </p>
+        </div>
+
+        <button class="btn-primary level-btn" data-level="escuela">
+            📘 Escuela
+        </button>
+
+        <button class="btn-primary level-btn" data-level="colegio">
+            📙 Colegio
+        </button>
+
+        <button class="btn-primary level-btn" data-level="universidad">
+            🎓 Universidad
+        </button>
+
+        <button id="backMenuButton" class="btn-secondary">
+            ⬅ Volver al menú
+        </button>
+
+    </div>
+
+</div>
 
     <!-- Game Screen -->
     <div id="gameScreen" class="screen">

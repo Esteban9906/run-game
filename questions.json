@@ -2,108 +2,123 @@
   "banco_preguntas": [
     {
       "id": 1,
-      "pregunta": "¿Cuál es el país más grande del mundo?",
-      "opciones": ["Rusia", "China", "Estados Unidos", "Canadá"],
-      "respuesta_correcta_index": 0,
-      "feedback": "Rusia es el país más grande en extensión territorial."
+      "nivel": "escuela",
+      "pregunta": "¿Cuánto es 2 + 2?",
+      "opciones": ["3", "4", "5"],
+      "respuesta_correcta_index": 1,
+      "feedback": "La respuesta correcta es 4."
     },
     {
       "id": 2,
-      "pregunta": "¿Cuál es el océano más grande?",
-      "opciones": ["Atlántico", "Índico", "Pacífico", "Ártico"],
+      "nivel": "escuela",
+      "pregunta": "¿Cuánto es 7 × 3?",
+      "opciones": ["18", "20", "21"],
       "respuesta_correcta_index": 2,
-      "feedback": "El océano Pacífico es el más extenso del planeta."
+      "feedback": "7 × 3 = 21."
     },
     {
       "id": 3,
-      "pregunta": "¿Quién pintó la Mona Lisa?",
-      "opciones": ["Vincent van Gogh", "Leonardo da Vinci", "Picasso", "Miguel Ángel"],
+      "nivel": "escuela",
+      "pregunta": "¿Cuál es el resultado de 15 - 8?",
+      "opciones": ["6", "7", "8"],
       "respuesta_correcta_index": 1,
-      "feedback": "La Mona Lisa fue pintada por Leonardo da Vinci."
+      "feedback": "15 - 8 = 7."
     },
     {
       "id": 4,
-      "pregunta": "¿En qué año llegó el hombre a la Luna?",
-      "opciones": ["1965", "1969", "1972", "1959"],
+      "nivel": "escuela",
+      "pregunta": "¿Cuál es la mitad de 20?",
+      "opciones": ["8", "10", "12"],
       "respuesta_correcta_index": 1,
-      "feedback": "El hombre llegó a la Luna en 1969 con la misión Apolo 11."
+      "feedback": "La mitad de 20 es 10."
     },
     {
       "id": 5,
-      "pregunta": "¿Cuál es el idioma más hablado del mundo?",
-      "opciones": ["Inglés", "Español", "Chino mandarín", "Hindi"],
-      "respuesta_correcta_index": 2,
-      "feedback": "El chino mandarín es el idioma con más hablantes."
+      "nivel": "escuela",
+      "pregunta": "¿Cuál es el siguiente número en la secuencia: 2, 4, 6, ?",
+      "opciones": ["7", "8", "10"],
+      "respuesta_correcta_index": 1,
+      "feedback": "La secuencia suma 2 cada vez, así que sigue con 8."
     },
     {
       "id": 6,
-      "pregunta": "¿Cuál es el río más largo del mundo?",
-      "opciones": ["Amazonas", "Nilo", "Yangtsé", "Misisipi"],
-      "respuesta_correcta_index": 0,
-      "feedback": "El Amazonas es considerado el río más largo."
+      "nivel": "colegio",
+      "pregunta": "¿Cuánto es 12 ÷ 3?",
+      "opciones": ["2", "3", "4"],
+      "respuesta_correcta_index": 2,
+      "feedback": "12 ÷ 3 = 4."
     },
     {
       "id": 7,
-      "pregunta": "¿Cuál es la capital de Francia?",
-      "opciones": ["Roma", "Madrid", "París", "Berlín"],
-      "respuesta_correcta_index": 2,
-      "feedback": "París es la capital de Francia."
+      "nivel": "colegio",
+      "pregunta": "Resuelve: 5² + 3",
+      "opciones": ["25", "28", "30"],
+      "respuesta_correcta_index": 1,
+      "feedback": "5² = 25, y 25 + 3 = 28."
     },
     {
       "id": 8,
-      "pregunta": "¿Cuántos continentes existen?",
-      "opciones": ["5", "6", "7", "8"],
-      "respuesta_correcta_index": 2,
-      "feedback": "Existen 7 continentes en el mundo."
+      "nivel": "colegio",
+      "pregunta": "¿Cuál es el resultado de 3(4 + 2)?",
+      "opciones": ["12", "18", "20"],
+      "respuesta_correcta_index": 1,
+      "feedback": "Primero suma 4 + 2 = 6, luego 3 × 6 = 18."
     },
     {
       "id": 9,
-      "pregunta": "¿Cuál es el planeta más grande del sistema solar?",
-      "opciones": ["Tierra", "Saturno", "Júpiter", "Marte"],
+      "nivel": "colegio",
+      "pregunta": "¿Cuál es el valor de x si x + 7 = 15?",
+      "opciones": ["6", "7", "8"],
       "respuesta_correcta_index": 2,
-      "feedback": "Júpiter es el planeta más grande."
+      "feedback": "x = 15 - 7 = 8."
     },
     {
       "id": 10,
-      "pregunta": "¿Quién escribió 'Don Quijote de la Mancha'?",
-      "opciones": ["Gabriel García Márquez", "Miguel de Cervantes", "Pablo Neruda", "Mario Vargas Llosa"],
+      "nivel": "colegio",
+      "pregunta": "¿Cuánto es 9 - 2 × 3?",
+      "opciones": ["3", "5", "7"],
       "respuesta_correcta_index": 1,
-      "feedback": "Fue escrito por Miguel de Cervantes."
+      "feedback": "Primero multiplicas 2 × 3 = 6, luego 9 - 6 = 3."
     },
     {
       "id": 11,
-      "pregunta": "¿Cuál es el país con más población?",
-      "opciones": ["India", "China", "Estados Unidos", "Brasil"],
-      "respuesta_correcta_index": 0,
-      "feedback": "Actualmente India es el país más poblado."
+      "nivel": "universidad",
+      "pregunta": "Resuelve: 2x + 5 = 17",
+      "opciones": ["4", "6", "8"],
+      "respuesta_correcta_index": 2,
+      "feedback": "2x = 12, entonces x = 6."
     },
     {
       "id": 12,
-      "pregunta": "¿Cuál es el animal terrestre más rápido?",
-      "opciones": ["León", "Tigre", "Guepardo", "Caballo"],
-      "respuesta_correcta_index": 2,
-      "feedback": "El guepardo es el animal terrestre más veloz."
+      "nivel": "universidad",
+      "pregunta": "¿Cuál es el valor de (3² + 4²)?",
+      "opciones": ["12", "20", "25"],
+      "respuesta_correcta_index": 1,
+      "feedback": "3² = 9 y 4² = 16, así que 9 + 16 = 25."
     },
     {
       "id": 13,
-      "pregunta": "¿En qué continente está Egipto?",
-      "opciones": ["Asia", "Europa", "África", "Oceanía"],
-      "respuesta_correcta_index": 2,
-      "feedback": "Egipto se encuentra en África."
+      "nivel": "universidad",
+      "pregunta": "Resuelve: log₂(8)",
+      "opciones": ["2", "3", "4"],
+      "respuesta_correcta_index": 1,
+      "feedback": "2³ = 8, por lo tanto log₂(8) = 3."
     },
     {
       "id": 14,
-      "pregunta": "¿Cuál es el metal más ligero?",
-      "opciones": ["Hierro", "Litio", "Oro", "Plata"],
+      "nivel": "universidad",
+      "pregunta": "¿Cuál es la derivada de f(x) = x²?",
+      "opciones": ["x", "2x", "x²"],
       "respuesta_correcta_index": 1,
-      "feedback": "El litio es el metal más ligero."
+      "feedback": "La derivada de x² es 2x."
     },
     {
       "id": 15,
-      "pregunta": "¿Cuántos lados tiene un hexágono?",
-      "opciones": ["5", "6", "7", "8"],
-      "respuesta_correcta_index": 1,
-      "feedback": "Un hexágono tiene 6 lados."
+      "nivel": "universidad",
+      "pregunta": "Resuelve: ∫(2x) dx",
+      "opciones": ["x²", "2x²", "x"],
+      "respuesta_correcta_index": 0,
+      "feedback": "La integral de 2x es x² + C."
     }
   ]
 }

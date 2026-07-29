@@ -23,6 +23,7 @@ const CONFIG = {
 // Game State
 const GAME_STATE = {
     MENU: 'menu',
+    LEVEL_SELECT: 'level_select',
     PLAYING: 'playing',
     PAUSED_FEEDBACK: 'paused_feedback',
     GAME_OVER: 'gameover'
@@ -65,12 +66,17 @@ class Game {
         this.showingPreview = false;
         this.previewSpawned = false;
         this.music = new BackgroundMusic();
+        this.selectedLevel = null;
+        this.questionsLoaded = false;
+        this.pendingLevelSelection = null;
 
         this.setupCanvas();
         this.setupEventListeners();
         this.loadQuestions();
         this.updateHighScoreDisplay();
+        
     }
+    
 
     setupCanvas() {
         this.resizeCanvas();
@@ -133,10 +139,24 @@ class Game {
         }, { passive: false });
 
         // UI Buttons
-        document.getElementById('startButton').addEventListener('click', () => this.startGame());
+        document.getElementById('startButton').addEventListener('click', () => this.showLevelScreen());
         document.getElementById('restartButton').addEventListener('click', () => this.startGame());
         document.getElementById('menuButton').addEventListener('click', () => this.showMenu());
         document.getElementById('continueButton').addEventListener('click', () => this.continueAfterFeedback());
+        document.getElementById('backMenuButton').addEventListener('click', () => this.showMenu());
+        
+        // LEVEL BUTTONS
+        document.querySelectorAll('.level-btn').forEach(button => {
+
+            button.addEventListener('click', () => {
+
+                const level = button.dataset.level;
+
+                this.startGame(level);
+
+            });
+
+        });
 
         // Answer buttons (will be set up when question appears)
         this.setupAnswerButtons();
@@ -178,8 +198,14 @@ class Game {
         try {
             const response = await fetch('questions.json');
             const data = await response.json();
-            this.questions = data.banco_preguntas;
-            console.log(this.questions);
+            this.questions = Array.isArray(data.banco_preguntas) ? data.banco_preguntas : [];
+            this.questionsLoaded = true;
+
+            if (this.pendingLevelSelection) {
+                const pendingLevel = this.pendingLevelSelection;
+                this.pendingLevelSelection = null;
+                this.startGame(pendingLevel);
+            }
         } catch (error) {
             console.error('Error loading questions:', error);
             // Fallback preventing game crash if run without local server
@@ -190,6 +216,13 @@ class Game {
                 respuesta_correcta_index: 2,
                 feedback: "Por seguridad de navegadores, no se puede hacer 'fetch' a archivos locales directamente abriendo el HTML. Usa una extensión como Live Server en VSCode."
             }];
+            this.questionsLoaded = true;
+
+            if (this.pendingLevelSelection) {
+                const pendingLevel = this.pendingLevelSelection;
+                this.pendingLevelSelection = null;
+                this.startGame(pendingLevel);
+            }
         }
     }
 
@@ -205,21 +238,51 @@ class Game {
         document.getElementById('highScoreDisplay').textContent = this.highScore;
     }
 
+    getQuestionsForLevel(level = null) {
+        const levelToUse = level || this.selectedLevel;
+        if (!levelToUse) return this.questions;
+
+        const filteredQuestions = this.questions.filter(question => {
+            return question.nivel === levelToUse ||
+                question.level === levelToUse ||
+                question.categoria === levelToUse;
+        });
+
+        if (filteredQuestions.length === 0) {
+            console.warn(`No se encontraron preguntas para el nivel "${levelToUse}". Se usarán todas las preguntas disponibles como respaldo.`);
+            return this.questions;
+        }
+
+        return filteredQuestions;
+    }
+
+    prepareQuestionQueue(level = null) {
+        const pool = this.getQuestionsForLevel(level);
+        const source = Array.isArray(pool) && pool.length > 0 ? pool : this.questions;
+        this.questionQueue = JSON.parse(JSON.stringify(source));
+
+        for (let i = this.questionQueue.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [this.questionQueue[i], this.questionQueue[j]] = [this.questionQueue[j], this.questionQueue[i]];
+        }
+    }
+
     getRandomQuestion() {
-        // If queue is empty, refill and shuffle
+        // If queue is empty, refill and shuffle using only questions from the selected level.
         if (!this.questionQueue || this.questionQueue.length === 0) {
-            this.questionQueue = [...this.questions];
-            // Fisher-Yates shuffle
-            for (let i = this.questionQueue.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [this.questionQueue[i], this.questionQueue[j]] = [this.questionQueue[j], this.questionQueue[i]];
-            }
+            this.prepareQuestionQueue(this.selectedLevel);
         }
         return JSON.parse(JSON.stringify(this.questionQueue.pop())); // Deep copy
     }
 
-    startGame() {
+    startGame(level = null) {
+        if (!this.questionsLoaded && this.questions.length === 0) {
+            this.pendingLevelSelection = level;
+            return;
+        }
+        
         this.state = GAME_STATE.PLAYING;
+        this.selectedLevel = level ?? this.selectedLevel;
         this.phase = GAME_PHASE.OBSTACLE;
         this.score = 0;
         this.speed = CONFIG.INITIAL_SPEED;
@@ -240,6 +303,7 @@ class Game {
         this.player = new Player(this);
         this.currentQuestion = null;
 
+        this.prepareQuestionQueue(this.selectedLevel);
         this.showScreen('gameScreen');
         this.hideQuestionPanel();
         this.hideFeedbackModal();
@@ -253,6 +317,9 @@ class Game {
     showMenu() {
         this.state = GAME_STATE.MENU;
         this.music.stop();
+        this.hideQuestionPanel();
+        this.hideFeedbackModal();
+        this.selectedLevel = null;
         this.showScreen('startScreen');
         this.updateHighScoreDisplay();
     }
@@ -298,6 +365,14 @@ class Game {
             container.appendChild(div);
         });
     }
+
+    showLevelScreen(){
+
+    this.state = GAME_STATE.LEVEL_SELECT;
+
+    this.showScreen('levelScreen');
+
+}
 
     showScreen(screenId) {
         document.querySelectorAll('.screen').forEach(screen => {
